@@ -1154,7 +1154,7 @@ TGEGLEWGVLFGFGPGLTVETVVLHSVAT
 Suppose you wanted to know how many records the \verb|Bio.SeqIO.write()| function wrote to the handle?
 If your records were in a list you could just use \verb|len(my_records)|, however you can't do that when your records come from a generator/iterator.  The \verb|Bio.SeqIO.write()| function returns the number of \verb|SeqRecord| objects written to the file.
 
-\emph{Note} - If you tell the \verb|Bio.SeqIO.write()| function to write to a file that already exists, the old file will be overwritten without any warning.
+\emph{Note} - If you tell the \verb|Bio.SeqIO.write()| function to write to a file that already exists, the old file will be overwritten without any warning. On the other hand, if you tell the \verb|Bio.SeqIO.write()| function to write to an open file handle, the record will be appended to the file, which may result in valid (e.g., FASTA) or invalid (e.g., SFF) output depending on the file format.
 
 \subsection{Round trips}
 

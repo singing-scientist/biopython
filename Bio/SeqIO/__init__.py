@@ -234,15 +234,15 @@ reason to do so.
 
 If you give a filename, then each time you call write() the existing file
 will be overwritten. For sequential files formats (e.g. fasta, genbank) each
-"record block" holds a single sequence.  For these files it would probably
+"record block" holds a single sequence. For these files it would probably
 be safe to call write() multiple times by re-using the same handle.
 
 However, trying this for certain alignment formats (e.g. phylip, clustal,
 stockholm) would have the effect of concatenating several multiple sequence
-alignments together.  Such files are created by the PHYLIP suite of programs
+alignments together. Such files are created by the PHYLIP suite of programs
 for bootstrap analysis, but it is clearer to do this via Bio.AlignIO instead.
 
-Worse, many fileformats have an explicit header and/or footer structure
+Worse, many file formats have an explicit header and/or footer structure
 (e.g. any XMl format, and most binary file formats like SFF). Here making
 multiple calls to write() will result in an invalid file.
 
@@ -476,7 +476,7 @@ _FormatToWriter = {
 
 
 def write(sequences, handle, format):
-    """Write complete set of sequences to a file.
+    """Write a sequence or set of sequences to a file.
 
     Arguments:
      - sequences - A list (or iterator) of SeqRecord objects, or a single
@@ -484,8 +484,12 @@ def write(sequences, handle, format):
      - handle    - File handle object to write to, or filename as string.
      - format    - lower case string describing the file format to write.
 
-    Note if providing a file handle, your code should close the handle
-    after calling this function (to ensure the data gets flushed to disk).
+    For handle, if an already-existing filename (string) is provided, it will
+    be overwritten; if an open file handle is provided, the record will be
+    appended to the file, which may result in valid (e.g., FASTA) or invalid
+    (e.g., SFF) output depending on the file format. Note if providing a file
+    handle, your code should close the handle after calling this function (to
+    ensure the data gets flushed to disk).
 
     Returns the number of records written (as an integer).
     """
