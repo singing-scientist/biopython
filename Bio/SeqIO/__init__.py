@@ -487,9 +487,10 @@ def write(sequences, handle, format):
     For handle, if an already-existing filename (string) is provided, it will
     be overwritten; if an open file handle is provided, the record will be
     appended to the file, which may result in valid (e.g., FASTA) or invalid
-    (e.g., SFF) output depending on the file format. Note if providing a file
-    handle, your code should close the handle after calling this function (to
-    ensure the data gets flushed to disk).
+    (e.g., SFF) output depending on the file format. If the user wants to call
+    SeqIO.write repeatedly with the same open file handle, they should not
+    close the handle until all records have been written. To ensure all data
+    are written to disk, the user may call flush or close the handle.
 
     Returns the number of records written (as an integer).
     """
